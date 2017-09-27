@@ -5,15 +5,17 @@ using System.IO;
 
 public class CreateLevel : MonoBehaviour {
 
-	Transform[] types;
+	static Transform[] types;
 	public Transform Green;
 	public Transform Red;
 	public Transform Platform;
 
+	static int level = -1;
+
 	// Use this for initialization
 	void Start () {
 		types = new Transform[] { Platform, Platform, Red, Green };
-		Setup ("level00");
+		NextLevel();
 	}
 	
 	// Update is called once per frame
@@ -21,7 +23,18 @@ public class CreateLevel : MonoBehaviour {
 		
 	}
 
-	void Setup(string levelName) {
+	public static void NextLevel (){
+		Debug.Log (Object.FindObjectsOfType<Destroyable> ());
+		Debug.Log (Object.FindObjectsOfType<Destroyable> ().Length);
+		foreach(Destroyable obj in Object.FindObjectsOfType<Destroyable> ()) {
+			Debug.Log (obj.GetComponent<GameObject>());
+			Destroy (obj.GetComponent<GameObject>());
+		}
+		level++;
+		Setup ("level" + level.ToString ());
+	}
+
+	static void Setup(string levelName) {
 		var sr = new StreamReader(Application.dataPath+"/Tilemaps/"+levelName+".csv");
 		float y = 0;
 		string line;

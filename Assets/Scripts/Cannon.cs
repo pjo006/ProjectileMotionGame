@@ -6,8 +6,10 @@ public class Cannon : MonoBehaviour {
 
 	public Transform Ball;
 
-	const float ANGLE_SCALE = 0.004f;
+	const float ANGLE_SCALE = -0.2f;
 	const float VELOCITY_SCALE = 0.1f;
+
+	const float FORWARD = 3f;
 
 	private float angle;
 
@@ -18,11 +20,12 @@ public class Cannon : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		angle = GetAngle ();
-		transform.rotation = Quaternion.Euler (0f, 0f, Mathf.Rad2Deg * angle + 90);
+		angle = Mathf.Deg2Rad * GetAngle ();
+		transform.rotation = Quaternion.Euler(Mathf.Rad2Deg*(angle + 0.35f), 90f, 0f);
 		if(Input.GetMouseButtonDown(0)) {
-			Transform newBall = Instantiate(Ball, Vector3.zero, Quaternion.identity);
-			newBall.GetComponent<Rigidbody> ().velocity = GetVelocity() * new Vector3(Mathf.Cos(angle), Mathf.Sin(angle), 0f);
+			Vector3 dir = new Vector3(Mathf.Cos(-angle), Mathf.Sin(-angle), 0f);
+			Transform newBall = Instantiate(Ball, Vector3.zero + FORWARD * dir, Quaternion.identity);
+			newBall.GetComponent<Rigidbody> ().velocity = GetVelocity () * dir;
 		}
 	}
 

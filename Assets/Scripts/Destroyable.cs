@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Destroyable : MonoBehaviour {
 
-	float MAP_BOTTOM = -0f;
+	float MAP_BOTTOM = -20f;
 
 	// Use this for initialization
 	void Start () {
