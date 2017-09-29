@@ -2,19 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Destroyable : MonoBehaviour {
+public class Ball : MonoBehaviour {
 
-	float MAP_BOTTOM = -5f;
+	public static int num = 0;
 
 	// Use this for initialization
 	void Start () {
-
+		num++;
 	}
-
+	
 	// Update is called once per frame
 	void Update () {
-		if(transform.position.y < MAP_BOTTOM) {
-			Destroy (gameObject);
-		}
+		
+	}
+
+	void OnDestroy () {
+		num--;
 	}
 }

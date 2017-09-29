@@ -26,9 +26,8 @@ public class CreateLevel : MonoBehaviour {
 	public static void NextLevel (){
 		Debug.Log (Object.FindObjectsOfType<Destroyable> ());
 		Debug.Log (Object.FindObjectsOfType<Destroyable> ().Length);
-		foreach(Destroyable obj in Object.FindObjectsOfType<Destroyable> ()) {
-			Debug.Log (obj.GetComponent<GameObject>());
-			Destroy (obj.GetComponent<GameObject>());
+		foreach(GameObject obj in GameObject.FindGameObjectsWithTag("Destroyable")) {
+			Destroy (obj);
 		}
 		level++;
 		Setup ("level" + level.ToString ());

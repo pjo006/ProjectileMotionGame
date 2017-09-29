@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class Cannon : MonoBehaviour {
 
-	public Transform Ball;
+	public Transform ball;
 
 	const float ANGLE_SCALE = -0.2f;
-	const float VELOCITY_SCALE = 0.1f;
+	const float VELOCITY_SCALE = 0.02f;
 
 	const float FORWARD = 3f;
 
@@ -22,9 +22,9 @@ public class Cannon : MonoBehaviour {
 	void Update () {
 		angle = Mathf.Deg2Rad * GetAngle ();
 		transform.rotation = Quaternion.Euler(Mathf.Rad2Deg*(angle + 0.35f), 90f, 0f);
-		if(Input.GetMouseButtonDown(0)) {
+		if(Input.GetMouseButtonDown(0) && Ball.num<3) {
 			Vector3 dir = new Vector3(Mathf.Cos(-angle), Mathf.Sin(-angle), 0f);
-			Transform newBall = Instantiate(Ball, Vector3.zero + FORWARD * dir, Quaternion.identity);
+			Transform newBall = Instantiate(ball, Vector3.zero + FORWARD * dir, Quaternion.identity);
 			newBall.GetComponent<Rigidbody> ().velocity = GetVelocity () * dir;
 		}
 	}
