@@ -11,12 +11,14 @@ public class CreateLevel : MonoBehaviour {
 	public Transform Platform;
 
     private static AudioSource levelSource;
+	private static AudioSource levelSourceFail;
 
 	static int level = -1;
 
 	// Use this for initialization
 	void Start () {
-        levelSource = GetComponent<AudioSource>();
+        levelSource = GetComponents<AudioSource>()[0];
+		levelSourceFail = GetComponents<AudioSource>()[1];
 		types = new Transform[] { Platform, Platform, Red, Green };
 		NextLevel();
 	}
@@ -27,13 +29,19 @@ public class CreateLevel : MonoBehaviour {
 	}
 
 	public static void NextLevel (){
-		Debug.Log (Object.FindObjectsOfType<Destroyable> ());
-		Debug.Log (Object.FindObjectsOfType<Destroyable> ().Length);
 		foreach(GameObject obj in GameObject.FindGameObjectsWithTag("Destroyable")) {
 			Destroy (obj);
 		}
         levelSource.Play();
 		level++;
+		Setup ("level" + level.ToString ());
+	}
+
+	public static void ResetLevel() {
+		foreach(GameObject obj in GameObject.FindGameObjectsWithTag("Destroyable")) {
+			Destroy (obj);
+		}
+		levelSourceFail.Play();
 		Setup ("level" + level.ToString ());
 	}
 
