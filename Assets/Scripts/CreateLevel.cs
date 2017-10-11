@@ -10,10 +10,13 @@ public class CreateLevel : MonoBehaviour {
 	public Transform Red;
 	public Transform Platform;
 
+    private static AudioSource levelSource;
+
 	static int level = -1;
 
 	// Use this for initialization
 	void Start () {
+        levelSource = GetComponent<AudioSource>();
 		types = new Transform[] { Platform, Platform, Red, Green };
 		NextLevel();
 	}
@@ -29,6 +32,7 @@ public class CreateLevel : MonoBehaviour {
 		foreach(GameObject obj in GameObject.FindGameObjectsWithTag("Destroyable")) {
 			Destroy (obj);
 		}
+        levelSource.Play();
 		level++;
 		Setup ("level" + level.ToString ());
 	}
