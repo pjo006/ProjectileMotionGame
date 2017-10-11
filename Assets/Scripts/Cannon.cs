@@ -28,8 +28,8 @@ public class Cannon : MonoBehaviour {
     }
 
     // Update is called once per frame
-	void Update (float deltaTime) {
-		timer -= deltaTime;
+	void Update () {
+		timer -= Time.deltaTime;
 		angle = Mathf.Deg2Rad * GetAngle ();
 		transform.rotation = Quaternion.Euler(Mathf.Rad2Deg*(angle + 0.35f), 90f, 0f);
 		if(Input.GetMouseButtonDown(0) && Ball.num<3 && timer<=0) {
