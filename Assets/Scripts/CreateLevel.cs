@@ -6,8 +6,8 @@ using System.IO;
 public class CreateLevel : MonoBehaviour {
 
 	static Transform[] types;
-	public Transform Green;
-	public Transform Red;
+	public Transform green;
+	public Transform red;
 	public Transform Platform;
 
     private static AudioSource levelSource;
@@ -19,7 +19,7 @@ public class CreateLevel : MonoBehaviour {
 	void Start () {
         levelSource = GetComponents<AudioSource>()[0];
 		levelSourceFail = GetComponents<AudioSource>()[1];
-		types = new Transform[] { Platform, Platform, Red, Green };
+		types = new Transform[] { Platform, Platform, red, green };
 		NextLevel();
 	}
 	
@@ -34,6 +34,7 @@ public class CreateLevel : MonoBehaviour {
 		}
         levelSource.Play();
 		level++;
+		Green.num = 0;
 		Setup ("level" + level.ToString ());
 	}
 
@@ -43,6 +44,7 @@ public class CreateLevel : MonoBehaviour {
 		}
 		levelSourceFail.Play();
 		Setup ("level" + level.ToString ());
+		Green.num = 0;
 	}
 
 	static void Setup(string levelName) {
