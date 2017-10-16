@@ -9,7 +9,9 @@ public class Cannon : MonoBehaviour {
 	const float frrt = 1f;
 	public float timer = 0f;
 
-	const float FORWARD = 3f;
+	public Vector3 top;
+
+	public float FORWARD;
 
 	private float angle;
     private AudioSource source;
@@ -28,11 +30,11 @@ public class Cannon : MonoBehaviour {
 	void Update () {
 		timer -= Time.deltaTime;
 		angle = Mathf.Deg2Rad * ControlUtility.GetAngle();
-		transform.rotation = Quaternion.Euler(Mathf.Rad2Deg*(angle + 0.35f), 90f, 0f);
+		transform.rotation = Quaternion.Euler(0f, 0f, -Mathf.Rad2Deg*(angle));
 		if(Input.GetMouseButtonDown(0) && Ball.num<3 && timer<=0) {
             source.PlayOneShot(cannonSound, 1.0f);
 			Vector3 dir = new Vector3(Mathf.Cos(-angle), Mathf.Sin(-angle), 0f);
-			Transform newBall = Instantiate(ball, Vector3.zero + FORWARD * dir, Quaternion.identity);
+			Transform newBall = Instantiate(ball, top + FORWARD * dir, Quaternion.identity);
 			newBall.GetComponent<Rigidbody> ().velocity = ControlUtility.GetVelocity() * dir;
 			timer = 1f / frrt;
 		}
