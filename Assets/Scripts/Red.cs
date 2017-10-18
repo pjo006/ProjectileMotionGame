@@ -13,7 +13,7 @@ public class Red : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		if(transform.position.y < MAP_BOTTOM) {
+		if(!ControlUtility.insidePlayArea(transform.position)) {
 			CreateLevel.ResetLevel ();
 			Destroy (gameObject);
 		}

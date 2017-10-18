@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Destroyable : MonoBehaviour {
 
+	float MAP_TOP = 30f;
 	float MAP_BOTTOM = -5f;
 
 	// Use this for initialization
@@ -13,7 +14,7 @@ public class Destroyable : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		if(transform.position.y < MAP_BOTTOM) {
+		if(!ControlUtility.insidePlayArea(transform.position)) {
 			Destroy (gameObject);
 		}
 	}

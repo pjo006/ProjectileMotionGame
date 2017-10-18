@@ -9,6 +9,9 @@ public class CreateLevel : MonoBehaviour {
 	public Transform green;
 	public Transform red;
 	public Transform Platform;
+	public Transform bg;
+
+	public static Transform background;
 
     private static AudioSource levelSource;
 	private static AudioSource levelSourceFail;
@@ -20,6 +23,7 @@ public class CreateLevel : MonoBehaviour {
         levelSource = GetComponents<AudioSource>()[0];
 		levelSourceFail = GetComponents<AudioSource>()[1];
 		types = new Transform[] { Platform, Platform, red, green };
+		background = bg;
 		NextLevel();
 	}
 	
@@ -49,6 +53,13 @@ public class CreateLevel : MonoBehaviour {
 
 	static void Setup(string levelName) {
 		var sr = new StreamReader(Application.dataPath+"/Tilemaps/"+levelName+".csv");
+
+		string imageFile = sr.ReadLine ();
+		Texture image = Resources.Load("images/"+imageFile/*+".jpg"*/) as Texture;
+		//print (image);
+		background.GetComponent<Renderer> ().material.mainTexture = image;
+		Physics.gravity = float.Parse (sr.ReadLine()) * Vector3.down;
+
 		float y = 0;
 		string line;
 		char[] delims = new char[] { ',' };

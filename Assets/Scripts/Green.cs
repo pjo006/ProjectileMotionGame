@@ -14,7 +14,7 @@ public class Green : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(transform.position.y < MAP_BOTTOM) {
+		if(!ControlUtility.insidePlayArea(transform.position)) {
 			num--;
 			if(num<=0) {
 				CreateLevel.NextLevel ();
