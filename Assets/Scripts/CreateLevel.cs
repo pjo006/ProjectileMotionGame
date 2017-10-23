@@ -11,6 +11,8 @@ public class CreateLevel : MonoBehaviour {
 	public Transform Platform;
 	public Transform bg;
 
+	static Texture2D image;
+
 	public static Transform background;
 
     private static AudioSource levelSource;
@@ -52,23 +54,35 @@ public class CreateLevel : MonoBehaviour {
 	}
 
 	static void Setup(string levelName) {
-		var sr = new StreamReader(Application.dataPath+"/Tilemaps/"+levelName+".csv");
+		var text = Resources.Load<TextAsset>("tilemaps/csv/"+levelName) as TextAsset;
 
-		string imageFile = sr.ReadLine ();
-		Texture image = Resources.Load("images/"+imageFile/*+".jpg"*/) as Texture;
+		string[] lines = text.text.Split (new char[]{ '\n' });
+
+		string imageFile = lines [0];
+		print ('"'+imageFile+'"');
+		image = Resources.Load<Texture2D>("images/"+imageFile) as Texture2D;
+		print (image);
+		//image = Resources.Load("images/jupiter") as Texture;
 		//print (image);
 		background.GetComponent<Renderer> ().material.mainTexture = image;
-		Physics.gravity = float.Parse (sr.ReadLine()) * Vector3.down;
+
+		image = Resources.Load<Texture2D>("images/"+imageFile) as Texture2D;
+		print (image);
+
+		Physics.gravity = float.Parse (lines [1]) * Vector3.down;
 
 		float y = 0;
 		string line;
 		char[] delims = new char[] { ',' };
-		while ((line=sr.ReadLine())!=null) {
+		for (int j=2; j<lines.Length; j++) {
+			line = lines[j];
 			float x = 0;
+			int blockType;
 			string[] positions = line.Split (delims, System.StringSplitOptions.RemoveEmptyEntries);
 			for (int i = 0; i < positions.Length; i++) {
-				if(positions[i]!="-1"){
-					Instantiate( types[int.Parse(positions[i])], new Vector3(x,y+30f,0), Quaternion.identity );
+				blockType = int.Parse (positions [i]);
+				if(blockType >= 0){
+					Instantiate( types[blockType], new Vector3(x,y+30f,0), Quaternion.identity );
 				}
 				x+=1;
 			}
