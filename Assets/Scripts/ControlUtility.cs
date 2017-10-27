@@ -25,10 +25,12 @@ public static class ControlUtility
 	}
 
 	public static bool insidePlayArea(Vector3 position){
-		if (position.x >= MAP_LEFT
-		   && position.x <= MAP_RIGHT
-		   && position.y >= MAP_BOTTOM
-		   && position.y <= MAP_TOP) {
+		if (
+				position.x >= MAP_LEFT
+		 	  	&& position.x <= MAP_RIGHT
+		   		&& position.y >= MAP_BOTTOM
+				&& (position.y <= MAP_TOP || Physics.gravity.sqrMagnitude >= 0.1f)
+		){
 			return true;
 		}
 		return false;
