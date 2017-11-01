@@ -18,6 +18,8 @@ public class CreateLevel : MonoBehaviour {
     private static AudioSource levelSource;
 	private static AudioSource levelSourceFail;
 
+	public static int NUM_LEVELS = 9;
+
 	static int level = -1;
 
 	// Use this for initialization
@@ -41,7 +43,7 @@ public class CreateLevel : MonoBehaviour {
 			Destroy (obj);
 		}
         levelSource.Play();
-		level++;
+		level = (level+1) % NUM_LEVELS;
 		Green.num = 0;
 		Setup ("level" + level.ToString ());
 	}
