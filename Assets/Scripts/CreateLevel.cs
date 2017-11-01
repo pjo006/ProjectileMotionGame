@@ -63,7 +63,7 @@ public class CreateLevel : MonoBehaviour {
 		string[] lines = text.text.Split (new char[]{ '\n' });
 
 		string imageFile = lines [0];
-		print ('"'+imageFile+'"');
+		//print ('"'+imageFile+'"');
 		image = Resources.Load<Texture2D>("images/"+imageFile) as Texture2D;
 		print (image);
 		//image = Resources.Load("images/jupiter") as Texture;
@@ -71,7 +71,7 @@ public class CreateLevel : MonoBehaviour {
 		background.GetComponent<Renderer> ().material.mainTexture = image;
 
 		image = Resources.Load<Texture2D>("images/"+imageFile) as Texture2D;
-		print (image);
+		//print (image);
 
 		Physics.gravity = float.Parse (lines [1]) * Vector3.down;
 

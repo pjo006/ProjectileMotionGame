@@ -46,8 +46,8 @@ public class Cannon : MonoBehaviour {
 		float vy = ControlUtility.GetVelocity() * Mathf.Sin(angle);
 		float x0 = top.x + FORWARD*Mathf.Cos(angle);
 		float y0 = top.y - FORWARD*Mathf.Sin(angle);
-		print (x0);
-		print (y0);
+		//print (x0);
+		//print (y0);
 		float x;
 		float granularity = 0.1f;
 		for (int i = 0; i < line.positionCount; i++) {
