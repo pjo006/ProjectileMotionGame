@@ -5,17 +5,14 @@ using UnityEngine.UI;
 
 public class LevelText : MonoBehaviour {
 
-	public static Text levelText;
-	private static int level = 0;
+	private static Text levelText;
 
 	// Use this for initialization
 	void Start () {
 		levelText = GetComponent<Text> ();
-		levelText.text = "Level " + level.ToString();
 	}
 
-	public static void incrementLevel(){
-		level++;
-		levelText.text = "Level " + level.ToString ();
+	public static void setLevelText(string text){
+		levelText.text = text.ToUpper();
 	}
 }

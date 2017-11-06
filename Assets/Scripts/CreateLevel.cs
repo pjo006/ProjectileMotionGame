@@ -25,6 +25,7 @@ public class CreateLevel : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		Cursor.visible = false;
         levelSource = GetComponents<AudioSource>()[0];
 		levelSourceFail = GetComponents<AudioSource>()[1];
 		types = new Transform[] { Platform, Platform, red, green };
@@ -37,6 +38,10 @@ public class CreateLevel : MonoBehaviour {
 		if(Input.GetKeyDown(KeyCode.R)) {
 			ResetLevel ();
 		}
+		if (Input.GetKeyDown (KeyCode.S)) {
+			level = 0;
+			ResetLevel ();
+		}
 	}
 
 	public static void NextLevel (){
@@ -45,7 +50,6 @@ public class CreateLevel : MonoBehaviour {
 		}
         levelSource.Play();
 		level = (level+1) % NUM_LEVELS;
-		LevelText.incrementLevel ();
 		Green.num = 0;
 		Setup ("level" + level.ToString ());
 	}
@@ -65,6 +69,7 @@ public class CreateLevel : MonoBehaviour {
 		string[] lines = text.text.Split (new char[]{ '\n' });
 
 		string imageFile = lines [0];
+		LevelText.setLevelText (imageFile);
 		//print ('"'+imageFile+'"');
 		image = Resources.Load<Texture2D>("images/"+imageFile) as Texture2D;
 		print (image);
