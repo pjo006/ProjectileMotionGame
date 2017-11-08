@@ -70,6 +70,9 @@ public class CreateLevel : MonoBehaviour {
 
 		string imageFile = lines [0];
 		LevelText.setLevelText (imageFile);
+		if (levelName != "level0") {
+			LevelComplete.showLevelComplete ();
+		}
 		//print ('"'+imageFile+'"');
 		image = Resources.Load<Texture2D>("images/"+imageFile) as Texture2D;
 		print (image);
