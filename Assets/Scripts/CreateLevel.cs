@@ -20,7 +20,7 @@ public class CreateLevel : MonoBehaviour {
 	private static AudioSource levelSourceFail;
 	private static bool holding;
 	private static float timer = 0f;
-	private static float maxTime = 2f;
+	private static float maxTime = 1.6f;
 
 	public static int NUM_LEVELS = 9;
 
