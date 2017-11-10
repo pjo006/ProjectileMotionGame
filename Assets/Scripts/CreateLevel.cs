@@ -34,7 +34,6 @@ public class CreateLevel : MonoBehaviour {
 		levelSourceFail = GetComponents<AudioSource>()[1];
 		types = new Transform[] { Platform, Platform, red, green };
 		background = bg;
-		print ("Calling NextLevel");
 		NextLevel();
 	}
 	
@@ -51,9 +50,9 @@ public class CreateLevel : MonoBehaviour {
 			timer += Time.deltaTime;
 			print (timer.ToString ());
 			if (timer >= maxTime) {
-				print ("Starting Level");
 				LevelComplete.hideLevelComplete ();
 				Setup ("level" + level.ToString ());
+				holding = false;
 			}
 		}
 	}
@@ -66,10 +65,13 @@ public class CreateLevel : MonoBehaviour {
         levelSource.Play();
 		level = (level+1) % NUM_LEVELS;
 		Green.num = 0;
-		LevelComplete.showLevelComplete ();
-		timer = 0f;
-		holding = true;
-		print ("Holding is " + holding.ToString ());
+		if (level == 0) {
+			Setup ("level" + level.ToString ());
+		} else {
+			LevelComplete.showLevelComplete ();
+			timer = 0f;
+			holding = true;
+		}
 	}
 
 	public static void ResetLevel() {

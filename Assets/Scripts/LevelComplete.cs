@@ -9,7 +9,6 @@ public class LevelComplete : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		print ("Start Method for LevelComplete");
 		completeText = GetComponent<Text> ();
 		print (completeText.ToString ());
 	}
