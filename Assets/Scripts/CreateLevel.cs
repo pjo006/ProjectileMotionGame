@@ -18,6 +18,9 @@ public class CreateLevel : MonoBehaviour {
 
     private static AudioSource levelSource;
 	private static AudioSource levelSourceFail;
+	private static bool holding;
+	private static float timer = 0f;
+	private static float maxTime = 2f;
 
 	public static int NUM_LEVELS = 9;
 
@@ -25,11 +28,13 @@ public class CreateLevel : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		holding = false;
 		Cursor.visible = false;
         levelSource = GetComponents<AudioSource>()[0];
 		levelSourceFail = GetComponents<AudioSource>()[1];
 		types = new Transform[] { Platform, Platform, red, green };
 		background = bg;
+		print ("Calling NextLevel");
 		NextLevel();
 	}
 	
@@ -42,16 +47,29 @@ public class CreateLevel : MonoBehaviour {
 			level = 0;
 			ResetLevel ();
 		}
+		if (holding == true) {
+			timer += Time.deltaTime;
+			print (timer.ToString ());
+			if (timer >= maxTime) {
+				print ("Starting Level");
+				LevelComplete.hideLevelComplete ();
+				Setup ("level" + level.ToString ());
+			}
+		}
 	}
 
 	public static void NextLevel (){
 		foreach(GameObject obj in GameObject.FindGameObjectsWithTag("Destroyable")) {
 			Destroy (obj);
 		}
+		print ("In NextLevel");
         levelSource.Play();
 		level = (level+1) % NUM_LEVELS;
 		Green.num = 0;
-		Setup ("level" + level.ToString ());
+		LevelComplete.showLevelComplete ();
+		timer = 0f;
+		holding = true;
+		print ("Holding is " + holding.ToString ());
 	}
 
 	public static void ResetLevel() {
@@ -70,9 +88,6 @@ public class CreateLevel : MonoBehaviour {
 
 		string imageFile = lines [0];
 		LevelText.setLevelText (imageFile);
-		if (levelName != "level0") {
-			LevelComplete.showLevelComplete ();
-		}
 		//print ('"'+imageFile+'"');
 		image = Resources.Load<Texture2D>("images/"+imageFile) as Texture2D;
 		print (image);
