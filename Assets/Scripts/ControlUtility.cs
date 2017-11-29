@@ -4,10 +4,10 @@ using UnityEngine;
 
 public static class ControlUtility
 {
-	const float MAP_LEFT = -5f;
-	const float MAP_RIGHT = 66.5f;
-	const float MAP_BOTTOM = -5f;
-	const float MAP_TOP = 30.5f;
+	public const float MAP_LEFT = -5f;
+	public const float MAP_RIGHT = 66.5f;
+	public const float MAP_BOTTOM = -5f;
+	public const float MAP_TOP = 30.5f;
 
 	const float ANGLE_SCALE = -1f;
 	public const float VELOCITY_SCALE = 25f;
