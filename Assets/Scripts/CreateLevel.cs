@@ -22,7 +22,7 @@ public class CreateLevel : MonoBehaviour {
 	private static float timer = 0f;
 	private static float maxTime = 1.6f;
 
-	public static int NUM_LEVELS = 9;
+	public static int NUM_LEVELS = 18;
 
 	static int level = -1;
 
@@ -45,6 +45,9 @@ public class CreateLevel : MonoBehaviour {
 		if (Input.GetKeyDown (KeyCode.S)) {
 			level = 0;
 			ResetLevel ();
+		}
+		if (Input.GetKeyDown (KeyCode.RightArrow)) {
+			NextLevel ();
 		}
 		if (holding == true) {
 			timer += Time.deltaTime;
