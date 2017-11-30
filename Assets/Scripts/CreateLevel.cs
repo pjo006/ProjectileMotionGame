@@ -12,6 +12,12 @@ public class CreateLevel : MonoBehaviour {
 	public Transform Platform;
 	public Transform bg;
 
+	public List<string> textureNames;
+	public List<Texture2D> textures;
+
+	public static List<string> statTextureNames;
+	public static List<Texture2D> statTextures;
+
 	static Texture2D image;
 
 	public static Transform background;
@@ -28,6 +34,9 @@ public class CreateLevel : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		statTextureNames = textureNames;
+		statTextures = textures;
+
 		holding = false;
 		Cursor.visible = false;
         levelSource = GetComponents<AudioSource>()[0];
@@ -35,6 +44,8 @@ public class CreateLevel : MonoBehaviour {
 		types = new Transform[] { Platform, Platform, red, green };
 		background = bg;
 		NextLevel();
+
+
 	}
 	
 	// Update is called once per frame
@@ -64,7 +75,7 @@ public class CreateLevel : MonoBehaviour {
 		foreach(GameObject obj in GameObject.FindGameObjectsWithTag("Destroyable")) {
 			Destroy (obj);
 		}
-		print ("In NextLevel");
+		//print ("In NextLevel");
         levelSource.Play();
 		level = (level+1) % NUM_LEVELS;
 		Green.num = 0;
@@ -93,15 +104,11 @@ public class CreateLevel : MonoBehaviour {
 
 		string imageFile = lines [0];
 		LevelText.setLevelText (imageFile);
-		//print ('"'+imageFile+'"');
-		image = Resources.Load<Texture2D>("images/"+imageFile) as Texture2D;
-		print (image);
+		image = statTextures[statTextureNames.FindIndex(x => x.CompareTo(imageFile.Trim())==0)];
+		//print (image);
 		//image = Resources.Load("images/jupiter") as Texture;
 		//print (image);
 		background.GetComponent<Renderer> ().material.mainTexture = image;
-
-		image = Resources.Load<Texture2D>("images/"+imageFile) as Texture2D;
-		//print (image);
 
 		Physics.gravity = float.Parse (lines [1]) * Vector3.down;
 
