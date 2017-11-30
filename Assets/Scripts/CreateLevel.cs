@@ -51,7 +51,7 @@ public class CreateLevel : MonoBehaviour {
 		}
 		if (holding == true) {
 			timer += Time.deltaTime;
-			print (timer.ToString ());
+			//print (timer.ToString ());
 			if (timer >= maxTime) {
 				LevelComplete.hideLevelComplete ();
 				Setup ("level" + level.ToString ());
@@ -122,5 +122,7 @@ public class CreateLevel : MonoBehaviour {
 			}
 			y-=1;
 		}
+
+		FallingBall.ResetAll ();
 	}
 }
