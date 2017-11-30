@@ -12,11 +12,18 @@ public class CreateLevel : MonoBehaviour {
 	public Transform Platform;
 	public Transform bg;
 
+	public static int mode = -1;
+
 	public List<string> textureNames;
 	public List<Texture2D> textures;
 
 	public static List<string> statTextureNames;
 	public static List<Texture2D> statTextures;
+
+	public Texture2D startBackgroundImage;
+
+	public List<GameObject> neededForGame;
+	public static List<GameObject> statNeededForGame;
 
 	static Texture2D image;
 
@@ -36,6 +43,7 @@ public class CreateLevel : MonoBehaviour {
 	void Start () {
 		statTextureNames = textureNames;
 		statTextures = textures;
+		statNeededForGame = neededForGame;
 
 		holding = false;
 		Cursor.visible = false;
@@ -43,9 +51,21 @@ public class CreateLevel : MonoBehaviour {
 		levelSourceFail = GetComponents<AudioSource>()[1];
 		types = new Transform[] { Platform, Platform, red, green };
 		background = bg;
-		NextLevel();
+		background.GetComponent<Renderer> ().material.mainTexture = startBackgroundImage;
+		//NextLevel();
 
 
+	}
+
+	void StartGame () {
+		mode = (Input.mousePosition.x < Screen.width / 2) ? 0 : 1;
+		foreach (GameObject obj in statNeededForGame) {
+			obj.SetActive (true);
+		}
+		foreach (GameObject obj in StartButton.buttons) {
+			obj.SetActive (false);
+		}
+		NextLevel ();
 	}
 	
 	// Update is called once per frame
@@ -59,6 +79,9 @@ public class CreateLevel : MonoBehaviour {
 		}
 		if (Input.GetKeyDown (KeyCode.RightArrow)) {
 			NextLevel ();
+		}
+		if (mode == -1 && Input.GetMouseButtonDown (0)) {
+			StartGame();
 		}
 		if (holding == true) {
 			timer += Time.deltaTime;

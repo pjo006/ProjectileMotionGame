@@ -50,9 +50,11 @@ public class Cannon : MonoBehaviour {
 		//print (y0);
 		float x;
 		float granularity = 0.1f;
-		for (int i = 0; i < line.positionCount; i++) {
-			x = granularity * i;
-			line.SetPosition (i, new Vector3 (x, -0.5f*Physics.gravity.magnitude*(x-x0)*(x-x0)/(vx*vx) + vy*(x-x0)/vx + y0, 0f));
+		if (CreateLevel.mode == 0) {
+			for (int i = 0; i < line.positionCount; i++) {
+				x = granularity * i;
+				line.SetPosition (i, new Vector3 (x, -0.5f * Physics.gravity.magnitude * (x - x0) * (x - x0) / (vx * vx) + vy * (x - x0) / vx + y0, 0f));
+			}
 		}
 	}
 

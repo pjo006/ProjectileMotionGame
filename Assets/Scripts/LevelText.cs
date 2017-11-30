@@ -8,7 +8,7 @@ public class LevelText : MonoBehaviour {
 	private static Text levelText;
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
 		levelText = GetComponent<Text> ();
 	}
 
