@@ -127,6 +127,8 @@ public class CreateLevel : MonoBehaviour {
 
 		string imageFile = lines [0];
 		LevelText.setLevelText (imageFile);
+		PlanetText.setPlanetText (imageFile);
+		GravText.setGravText (lines [1]);
 		image = statTextures[statTextureNames.FindIndex(x => x.CompareTo(imageFile.Trim())==0)];
 		//print (image);
 		//image = Resources.Load("images/jupiter") as Texture;
