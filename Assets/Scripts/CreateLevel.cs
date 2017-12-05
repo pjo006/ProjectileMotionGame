@@ -32,6 +32,11 @@ public class CreateLevel : MonoBehaviour {
 
     private static AudioSource levelSource;
 	private static AudioSource levelSourceFail;
+	private static AudioSource startInstructions;
+	private static AudioSource levelInstructions;
+	private static AudioSource redInstructions;
+	private static AudioSource levelComplete;
+	const int redLevel = 8;
 	private static bool holding;
 	private static float timer;
 	private static float maxTime;
@@ -58,12 +63,16 @@ public class CreateLevel : MonoBehaviour {
 		Cursor.visible = false; // don't show mouse on screen
         levelSource = GetComponents<AudioSource>()[0];
 		levelSourceFail = GetComponents<AudioSource>()[1];
+		startInstructions = GetComponents<AudioSource>()[2];
+		levelInstructions = GetComponents<AudioSource>()[3];
+		redInstructions = GetComponents<AudioSource>()[4];
+		levelComplete = GetComponents<AudioSource>()[5];
 		types = new Transform[] { Platform, Platform, red, green };  // In ogmo, 0,1 are platform, 2 is red, 3 is green 
 		background = bg;
 		background.GetComponent<Renderer> ().material.mainTexture = startBackgroundImage;
 		//NextLevel();
 
-
+		startInstructions.Play (); // say the start instructions
 	}
 
 	void StartGame () {
@@ -75,6 +84,11 @@ public class CreateLevel : MonoBehaviour {
 			obj.SetActive (false);
 		}
 		NextLevel (); // start the first level
+		if (mode == 0) { // tutorial
+			levelComplete.Stop();
+			startInstructions.Stop();
+			levelInstructions.Play();
+		}
 	}
 	
 	// Update is called once per frame
@@ -108,6 +122,7 @@ public class CreateLevel : MonoBehaviour {
 		}
 		//print ("In NextLevel");
         levelSource.Play(); // play sound
+		levelComplete.Play();
 		level = (level+1) % NUM_LEVELS; // modularly increment level
 		Green.num = 0; // reset number of greens on screen
 		if (level == 0) {
@@ -116,6 +131,10 @@ public class CreateLevel : MonoBehaviour {
 			LevelComplete.showLevelComplete (); // run level complete sequence
 			timer = 0f;
 			holding = true;
+		}
+		if (mode == 0 && level == redLevel) {
+			levelComplete.Stop ();
+			redInstructions.Play ();
 		}
 	}
 

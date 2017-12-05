@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class StartButton : MonoBehaviour {
 
@@ -10,13 +11,18 @@ public class StartButton : MonoBehaviour {
 	RectTransform rectTransform;
 	string initialText;
 	bool selected = false;
+	AudioSource voice;
+
+	public const float waitTime = 8.5f; // 8 sec of instructions
+	float timer = waitTime;
 
 	public static List<GameObject> buttons = new List<GameObject>();
 
 	public int mode;
 
 	// Use this for initialization
-	void Start () {
+	void OnEnable () {
+		voice = GetComponent<AudioSource> ();
 		text = transform.GetChild(0).GetComponent<Text> (); // set text
 		initialText = text.text; // get initial text
 		rectTransform = GetComponent<RectTransform> ();
@@ -36,11 +42,15 @@ public class StartButton : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		timer -= Time.deltaTime;
 		if ((mode == 0 && Input.mousePosition.x < Screen.width/2) || (mode == 1 && Input.mousePosition.x > Screen.width/2)) { // will be selected
 			if (!selected) {
 				button.image.color = button.colors.highlightedColor; // selected style
-				text.text = "\u25B6 " + initialText.Replace("\n"," \u25C0\n");
+				text.text = "\u25B6 " + initialText.Replace ("\n", " \u25C0\n");
 				selected = true;
+				if (timer < 0f) {
+					voice.Play ();
+				}
 			}
 		} else {
 			if (selected) {
