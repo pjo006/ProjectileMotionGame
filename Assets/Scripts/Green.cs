@@ -5,21 +5,20 @@ using UnityEngine;
 public class Green : MonoBehaviour {
 
 	public static int num = 0;
-	float MAP_BOTTOM = -5f;
 
 	// Use this for initialization
 	void Start () {
-		num++;
+		num++; // this is one more green block
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		if(!ControlUtility.insidePlayArea(transform.position)) {
 			num--;
-			if(num<=0) {
+			if(num<=0) { // if no more greens, you completed the level
 				CreateLevel.NextLevel ();
 			}
-			Destroy (gameObject);
+			Destroy (gameObject); // destroy onesself
 		}
 	}
 }

@@ -9,10 +9,10 @@ public class LevelText : MonoBehaviour {
 
 	// Use this for initialization
 	void Awake () {
-		levelText = GetComponent<Text> ();
+		levelText = GetComponent<Text> (); // set text
 	}
 
 	public static void setLevelText(string text){
-		levelText.text = text.ToUpper();
+		levelText.text = text.ToUpper(); // set to a modified version of the given text
 	}
 }

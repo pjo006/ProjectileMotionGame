@@ -15,7 +15,7 @@ public class PowerBar : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		powerBar.value = ControlUtility.GetVelocityFraction();
-		Fill.color = Color.Lerp (Color.green,Color.red,powerBar.value);
+		powerBar.value = ControlUtility.GetVelocityFraction(); // set filled amount based only on controls
+		Fill.color = Color.Lerp (Color.green,Color.red,powerBar.value); // linearly interpolate the bar color
 	}
 }

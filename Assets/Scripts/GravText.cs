@@ -9,10 +9,10 @@ public class GravText : MonoBehaviour {
 
 	// Use this for initialization
 	void Awake () {
-		gravText = GetComponent<Text> ();
+		gravText = GetComponent<Text> (); // get text
 	}
 
 	public static void setGravText(string text){
-		gravText.text = text + " m/s^2";
+		gravText.text = text + " m/s²"; // set text
 	}
 }

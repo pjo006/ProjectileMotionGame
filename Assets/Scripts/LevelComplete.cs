@@ -2,22 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class LevelComplete : MonoBehaviour {
 
 	private static Text completeText;
 
 	// Use this for initialization
-	void Start () {
-		completeText = GetComponent<Text> ();
-		print (completeText.ToString ());
+	void OnEnable () {
+		completeText = GetComponent<Text> (); // set text
 	}
 
 	public static void showLevelComplete() {
-		completeText.text = "Level Complete";
+		completeText.text = "Level Complete"; // show when needed
 	}
 
 	public static void hideLevelComplete() {
-		completeText.text = "";
+		completeText.text = ""; // hide when not needed
 	}
 }

@@ -13,6 +13,6 @@ public class PlanetText : MonoBehaviour {
 	}
 
 	public static void setPlanetText(string text){
-		planetText.text = text[0].ToString().ToUpper() + text.Substring(1) + "'s Gravity";
+		planetText.text = text[0].ToString().ToUpper() + text.Substring(1) + "'s Gravity"; // Label the planet's gravity
 	}
 }
